@@ -40,14 +40,25 @@ repositories {
         url "$projectDir/../../../node_modules/react-native/android"
     }
     maven {
+        url 'https://jitpack.io'
+    }
+
+    maven {
         url 'https://maven.google.com/'
         name 'Google'
     }
-    maven { url "https://jitpack.io" }
+
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
 }
 
 dependencies {
     implementation "com.facebook.react:react-native:+"
-    implementation 'com.github.Polidea:MultiPlatformBleAdapter:58c87b49f12f4a5ab6f7af31f8085249e206400a'
+    implementation 'com.github.Polidea:MultiPlatformBleAdapter:0.1.5'
     testImplementation 'org.robospock:robospock:1.0.1'
 }

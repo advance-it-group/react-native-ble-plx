@@ -1,7 +1,7 @@
 package com.polidea.reactnativeble;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -45,6 +45,7 @@ public class BleClientManager extends ReactContextBaseJavaModule {
 
     // Name of module
     private static final String NAME = "BleClientManager";
+    private static final String HEADLESS_TASK_NAME = "BleHeadlessTask";
 
     // Value converters
     private final BleErrorToJsObjectConverter errorConverter = new BleErrorToJsObjectConverter();
@@ -55,6 +56,7 @@ public class BleClientManager extends ReactContextBaseJavaModule {
     private final ServiceToJsObjectConverter serviceConverter = new ServiceToJsObjectConverter();
 
     private BleAdapter bleAdapter;
+    private boolean headlessEnabled = false;
 
     public BleClientManager(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -76,6 +78,11 @@ public class BleClientManager extends ReactContextBaseJavaModule {
     }
 
     // Lifecycle -----------------------------------------------------------------------------------
+
+    @ReactMethod
+    public void enableHeadless(boolean isEnabled) {
+        headlessEnabled = isEnabled;
+    }
 
     @ReactMethod
     public void createClient(String restoreStateIdentifier) {
@@ -657,6 +664,7 @@ public class BleClientManager extends ReactContextBaseJavaModule {
                         jsResult.pushMap(characteristicConverter.toJSObject(data));
                         jsResult.pushString(transactionId);
                         sendEvent(Event.ReadEvent, jsResult);
+
                     }
                 }, new OnErrorCallback() {
                     @Override

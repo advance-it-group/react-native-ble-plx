@@ -8,6 +8,7 @@
 </p>
 
 ## About this library
+This is a fork of the react native BLE PLX library with support for invoking headless JS tasks
 
 This is React Native Bluetooth Low Energy library using [RxBluetoothKit](https://github.com/Polidea/RxBluetoothKit) and [RxAndroidBle](https://github.com/Polidea/RxAndroidBle) under the hood.
 
